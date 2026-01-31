@@ -1,14 +1,5 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-
-type Theme = 'light' | 'dark' | 'system';
-
-interface ThemeContextType {
-  theme: Theme;
-  resolvedTheme: 'light' | 'dark';
-  setTheme: (theme: Theme) => void;
-}
-
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+import { useEffect, useState, type ReactNode } from 'react';
+import { ThemeContext, type Theme } from '../hooks/useTheme';
 
 function getSystemTheme(): 'light' | 'dark' {
   if (typeof window !== 'undefined') {
@@ -45,7 +36,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     updateResolvedTheme();
     localStorage.setItem('theme', theme);
 
-    // Listen for system theme changes
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
       if (theme === 'system') {
@@ -62,12 +52,4 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       {children}
     </ThemeContext.Provider>
   );
-}
-
-export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
 }
