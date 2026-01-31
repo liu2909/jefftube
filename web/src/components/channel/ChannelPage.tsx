@@ -11,8 +11,6 @@ const channelTabs = [
   { id: "home", label: "Home" },
   { id: "videos", label: "Videos" },
   { id: "shorts", label: "Shorts" },
-  { id: "playlists", label: "Playlists" },
-  { id: "community", label: "Community" },
 ];
 
 export function ChannelPage() {

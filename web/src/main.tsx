@@ -5,6 +5,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { DataProvider } from "./contexts/DataContext";
 import App from "./App.tsx";
 import { VideoPage } from "./components/video/VideoPage";
+import { ShortsPage } from "./components/shorts/ShortsPage";
 import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
@@ -15,6 +16,7 @@ createRoot(document.getElementById("root")!).render(
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/watch/:videoId" element={<VideoPage />} />
+            <Route path="/shorts" element={<ShortsPage />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
