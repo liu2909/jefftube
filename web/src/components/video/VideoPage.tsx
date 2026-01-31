@@ -40,7 +40,7 @@ export function VideoPage() {
   return (
     <div className="min-h-screen bg-(--color-bg-primary) text-(--color-text-primary)">
       <Header />
-      <main className="pt-14 md:ml-60 px-4">
+      <main className="pt-14 px-4">
         <div className="max-w-[1800px] mx-auto flex flex-col lg:flex-row gap-6 py-6">
           {/* Main content */}
           <div className="flex-1 min-w-0">

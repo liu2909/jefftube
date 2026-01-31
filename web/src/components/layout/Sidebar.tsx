@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useMatch } from "react-router";
 import { cn } from "../../utils";
 import {
   HomeIcon,
@@ -143,6 +143,12 @@ export function SidebarContent({ onItemClick }: SidebarContentProps) {
 }
 
 export function Sidebar() {
+  const isVideoPage = useMatch("/watch/:videoId");
+
+  if (isVideoPage) {
+    return null;
+  }
+
   return (
     <aside className="hidden md:block fixed top-14 left-0 w-60 h-[calc(100vh-56px)] bg-(--color-bg-primary) overflow-y-auto scrollbar-thin">
       <SidebarContent />
