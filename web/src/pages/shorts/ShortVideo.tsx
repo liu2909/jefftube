@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router";
 import type { Video } from "../../hooks/useData";
 import { getVideoUrl, getThumbnailUrl } from "../../utils/thumbnail";
-import { Avatar } from "../ui/Avatar";
+import { Avatar } from "../../components/ui/Avatar";
 import {
   LikeIcon,
   DislikeIcon,
@@ -13,7 +13,7 @@ import {
   VolumeIcon,
   VolumeMutedIcon,
   CommentIcon,
-} from "../icons";
+} from "../../components/icons";
 
 interface ShortVideoProps {
   video: Video;

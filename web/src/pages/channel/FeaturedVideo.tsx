@@ -1,4 +1,4 @@
-import { VerifiedIcon, MoreVertIcon } from '../icons';
+import { VerifiedIcon, MoreVertIcon } from '../../components/icons';
 
 interface FeaturedVideoProps {
   thumbnail?: string;

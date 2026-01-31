@@ -3,8 +3,8 @@ import { CHANNEL_AVATAR_URL, CHANNEL_BANNER_URL } from "../../constants";
 import { ChannelBanner } from "./ChannelBanner";
 import { ChannelInfo } from "./ChannelInfo";
 import { ChannelTabs } from "./ChannelTabs";
-import { VideoCard } from "../ui/VideoCard";
-import { VideoCarousel } from "../ui/VideoCarousel";
+import { VideoCard } from "../../components/ui/VideoCard";
+import { VideoCarousel } from "../../components/ui/VideoCarousel";
 import { useData } from "../../hooks/useData";
 import { getThumbnailUrl } from "../../utils/thumbnail";
 

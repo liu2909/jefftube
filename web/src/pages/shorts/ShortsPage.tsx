@@ -1,9 +1,7 @@
 import { useRef, useState, useEffect, useMemo } from "react";
-import { Header } from "../layout/Header";
-import { Sidebar } from "../layout/Sidebar";
 import { ShortVideo } from "./ShortVideo";
 import { useData } from "../../hooks/useData";
-import { NavUpIcon, NavDownIcon } from "../icons";
+import { NavUpIcon, NavDownIcon } from "../../components/icons";
 
 export function ShortsPage() {
   const { videos } = useData();
@@ -54,12 +52,7 @@ export function ShortsPage() {
   const itemHeight = typeof window !== "undefined" ? window.innerHeight - 56 : 0;
 
   return (
-    <div className="min-h-screen bg-(--color-bg-primary) text-(--color-text-primary)">
-      <Header />
-      {/* Hide sidebar on mobile/tablet */}
-      <div className="hidden lg:block">
-        <Sidebar />
-      </div>
+    <>
       <main
         ref={containerRef}
         className="lg:ml-60 mt-14 h-[calc(100vh-56px)] overflow-y-scroll snap-y snap-mandatory scrollbar-hide"
@@ -105,6 +98,6 @@ export function ShortsPage() {
           <NavDownIcon />
         </button>
       </div>
-    </div>
+    </>
   );
 }

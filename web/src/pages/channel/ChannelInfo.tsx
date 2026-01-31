@@ -1,6 +1,6 @@
-import { Avatar } from "../ui/Avatar";
-import { Button } from "../ui/Button";
-import { VerifiedIcon, BellIcon, ChevronDownIcon } from "../icons";
+import { Avatar } from "../../components/ui/Avatar";
+import { Button } from "../../components/ui/Button";
+import { VerifiedIcon, BellIcon, ChevronDownIcon } from "../../components/icons";
 
 interface ChannelInfoProps {
   name: string;
