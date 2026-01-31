@@ -14,7 +14,7 @@ export function InfoModal({ isOpen, onClose }: InfoModalProps) {
         </p>
 
         <p className="text-(--color-text-secondary)">
-          JeffTube is a demo project showcasing a YouTube channel page clone built with React and TailwindCSS.
+          JTube is a demo project showcasing a YouTube channel page clone built with React and TailwindCSS.
           It features a responsive design with both light and dark mode support.
         </p>
 

@@ -14,8 +14,8 @@ import {
   MusicIcon,
   MoviesIcon,
   LiveIcon,
-  JeffTubePremiumIcon,
-  JeffTubeStudioIcon,
+  JTubePremiumIcon,
+  JTubeStudioIcon,
 } from "../icons";
 
 interface SidebarItemProps {
@@ -109,8 +109,8 @@ export function SidebarContent({ onItemClick }: SidebarContentProps) {
 
       <div className="border-t border-(--color-border-light) my-3" />
 
-      {/* Your JeffTube */}
-      <SectionHeader title="Your JeffTube" hasArrow />
+      {/* Your JTube */}
+      <SectionHeader title="Your JTube" hasArrow />
       <SidebarItem
         icon={<HistoryIcon />}
         label="History"
@@ -144,16 +144,16 @@ export function SidebarContent({ onItemClick }: SidebarContentProps) {
 
       <div className="border-t border-(--color-border-light) my-3" />
 
-      {/* More from JeffTube */}
-      <SectionHeader title="More from JeffTube" />
+      {/* More from JTube */}
+      <SectionHeader title="More from JTube" />
       <SidebarItem
-        icon={<JeffTubePremiumIcon />}
-        label="JeffTube Premium"
+        icon={<JTubePremiumIcon />}
+        label="JTube Premium"
         onClick={onItemClick}
       />
       <SidebarItem
-        icon={<JeffTubeStudioIcon />}
-        label="JeffTube Studio"
+        icon={<JTubeStudioIcon />}
+        label="JTube Studio"
         onClick={onItemClick}
       />
     </nav>
