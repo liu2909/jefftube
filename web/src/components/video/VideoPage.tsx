@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { useParams } from "react-router";
-import { CHANNEL_AVATAR_URL } from "../../constants";
 import { Header } from "../layout/Header";
 import { VideoPlayer } from "./VideoPlayer";
 import { VideoInfo } from "./VideoInfo";
@@ -8,7 +7,6 @@ import { VideoSidebar } from "./VideoSidebar";
 import { CommentSection } from "../comments";
 import { useData } from "../../hooks/useData";
 import { getVideoUrl, getThumbnailUrl } from "../../utils/thumbnail";
-import { formatViews } from "../../utils";
 
 export function VideoPage() {
   const { videoId } = useParams<{ videoId: string }>();
@@ -48,16 +46,7 @@ export function VideoPage() {
               src={getVideoUrl(video.filename)}
               poster={getThumbnailUrl(video.filename)}
             />
-            <VideoInfo
-              title={video.title}
-              views={formatViews(video.views)}
-              uploadedAt="4 months ago"
-              channelName="Jeffery Epstein"
-              channelAvatar={CHANNEL_AVATAR_URL}
-              subscribers="392K"
-              description="Official Jeffery Epstein youtube channel."
-              likes="3,918"
-            />
+            <VideoInfo video={video} />
             <CommentSection videoId={video.id} />
           </div>
 

@@ -101,13 +101,18 @@ export function Comment({ comment, videoId, isReply = false }: CommentProps) {
             </span>
           </div>
 
-          <button
-            onClick={handleDislike}
-            className={`p-1.5 rounded-full hover:bg-(--color-bg-hover) ${comment.userLike === false ? "text-blue-500" : "text-(--color-text-secondary)"
-              }`}
-          >
-            <DislikeIcon className="w-4 h-4" filled={comment.userLike === false} />
-          </button>
+          <div className="flex items-center">
+            <button
+              onClick={handleDislike}
+              className={`p-1.5 rounded-full hover:bg-(--color-bg-hover) ${comment.userLike === false ? "text-blue-500" : "text-(--color-text-secondary)"
+                }`}
+            >
+              <DislikeIcon className="w-4 h-4" filled={comment.userLike === false} />
+            </button>
+            <span className="text-xs text-(--color-text-secondary)">
+              {comment.dislikes > 0 ? formatViews(comment.dislikes) : ""}
+            </span>
+          </div>
 
           {!isReply && (
             <button

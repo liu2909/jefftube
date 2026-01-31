@@ -6,6 +6,8 @@ export interface Video {
   filename: string;
   length: number;
   views: number;
+  likes: number;
+  dislikes: number;
 }
 
 export interface DataContextType {

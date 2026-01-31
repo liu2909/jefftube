@@ -6,6 +6,11 @@ import {
   handleLikeComment,
   handleDislikeComment,
 } from "./routes/comments";
+import {
+  handleGetVideoLike,
+  handleLikeVideo,
+  handleDislikeVideo,
+} from "./routes/videoLikes";
 
 const server = Bun.serve({
   port: 3001,
@@ -62,6 +67,24 @@ const server = Bun.serve({
     const dislikeMatch = url.pathname.match(/^\/api\/comments\/([^/]+)\/dislike$/);
     if (dislikeMatch && req.method === "POST") {
       return handleDislikeComment(req, dislikeMatch[1], corsHeaders);
+    }
+
+    // GET /api/videos/:videoId/like - get user's like status
+    const videoLikeGetMatch = url.pathname.match(/^\/api\/videos\/([^/]+)\/like$/);
+    if (videoLikeGetMatch && req.method === "GET") {
+      return handleGetVideoLike(req, videoLikeGetMatch[1], corsHeaders);
+    }
+
+    // POST /api/videos/:videoId/like - like a video
+    const videoLikeMatch = url.pathname.match(/^\/api\/videos\/([^/]+)\/like$/);
+    if (videoLikeMatch && req.method === "POST") {
+      return handleLikeVideo(req, videoLikeMatch[1], corsHeaders);
+    }
+
+    // POST /api/videos/:videoId/dislike - dislike a video
+    const videoDislikeMatch = url.pathname.match(/^\/api\/videos\/([^/]+)\/dislike$/);
+    if (videoDislikeMatch && req.method === "POST") {
+      return handleDislikeVideo(req, videoDislikeMatch[1], corsHeaders);
     }
 
     // 404 for other routes

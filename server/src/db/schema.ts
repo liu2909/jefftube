@@ -7,6 +7,8 @@ export const videos = pgTable("videos", {
   filename: varchar("filename", { length: 255 }).notNull(),
   length: integer("length").notNull(),
   views: integer("views").notNull().default(0),
+  likes: integer("likes").notNull().default(0),
+  dislikes: integer("dislikes").notNull().default(0),
 });
 
 export const users = pgTable("users", {
@@ -35,14 +37,26 @@ export const commentLikes = pgTable("comment_likes", {
   uniqueIndex("comment_user_unique").on(table.commentId, table.userId),
 ]);
 
+export const videoLikes = pgTable("video_likes", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  videoId: uuid("video_id").notNull().references(() => videos.id, { onDelete: "cascade" }),
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  isLike: boolean("is_like").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  uniqueIndex("video_user_unique").on(table.videoId, table.userId),
+]);
+
 // Relations
 export const videosRelations = relations(videos, ({ many }) => ({
   comments: many(comments),
+  likes: many(videoLikes),
 }));
 
 export const usersRelations = relations(users, ({ many }) => ({
   comments: many(comments),
   commentLikes: many(commentLikes),
+  videoLikes: many(videoLikes),
 }));
 
 export const commentsRelations = relations(comments, ({ one, many }) => ({
@@ -74,6 +88,17 @@ export const commentLikesRelations = relations(commentLikes, ({ one }) => ({
   }),
 }));
 
+export const videoLikesRelations = relations(videoLikes, ({ one }) => ({
+  video: one(videos, {
+    fields: [videoLikes.videoId],
+    references: [videos.id],
+  }),
+  user: one(users, {
+    fields: [videoLikes.userId],
+    references: [users.id],
+  }),
+}));
+
 // Types
 export type Video = typeof videos.$inferSelect;
 export type NewVideo = typeof videos.$inferInsert;
@@ -83,3 +108,5 @@ export type Comment = typeof comments.$inferSelect;
 export type NewComment = typeof comments.$inferInsert;
 export type CommentLike = typeof commentLikes.$inferSelect;
 export type NewCommentLike = typeof commentLikes.$inferInsert;
+export type VideoLike = typeof videoLikes.$inferSelect;
+export type NewVideoLike = typeof videoLikes.$inferInsert;
