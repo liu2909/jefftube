@@ -1,0 +1,26 @@
+{
+  "name": "scrapper",
+  "module": "scraper.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "scrape": "bun run scraper.ts",
+    "scrape:9": "bun run scraper.ts --dataset 9",
+    "scrape:10": "bun run scraper.ts --dataset 10",
+    "scrape:11": "bun run scraper.ts --dataset 11",
+    "scrape:visible": "bun run scraper.ts --visible",
+    "scrape:test": "bun run scraper.ts --max-pages 50",
+    "scrape:fast": "bun run scraper.ts --concurrency 20",
+    "scrape:retry": "bun run scraper.ts --retry-failed",
+    "scrape:fresh": "bun run scraper.ts --clear-progress"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "playwright": "^1.58.1"
+  }
+}
