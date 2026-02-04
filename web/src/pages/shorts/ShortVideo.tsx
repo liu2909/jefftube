@@ -125,7 +125,7 @@ export function ShortVideo({ video, isActive }: ShortVideoProps) {
             <img
               src={thumbnailUrl}
               alt={video.title}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-contain"
             />
           )}
 
@@ -133,7 +133,7 @@ export function ShortVideo({ video, isActive }: ShortVideoProps) {
           <video
             ref={videoRef}
             src={getVideoUrl(video.filename)}
-            className="w-full h-full object-cover cursor-pointer"
+            className="w-full h-full object-contain cursor-pointer"
             loop
             playsInline
             muted={false}

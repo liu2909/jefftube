@@ -80,7 +80,7 @@ function PlaylistSidebar({ playlistId, playlistName, videos, currentVideoId }: P
   const totalDuration = videos.reduce((acc, v) => acc + v.length, 0);
 
   return (
-    <aside className="w-full lg:w-[400px] shrink-0 border border-(--color-border-light) rounded-xl overflow-hidden">
+    <aside className="w-full h-max lg:w-[400px] shrink-0 border border-(--color-border-light) rounded-xl overflow-hidden">
       {/* Playlist header */}
       <div className="bg-(--color-bg-secondary) p-4">
         <h2 className="text-lg font-bold text-(--color-text-primary)">{playlistName}</h2>

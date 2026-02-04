@@ -144,8 +144,9 @@ export function SidebarContent({ onItemClick }: SidebarContentProps) {
 
 export function Sidebar() {
   const isVideoPage = useMatch("/watch/:videoId");
+  const isPlaylistPage = useMatch("/playlist/:playlistId/:videoId");
 
-  if (isVideoPage) {
+  if (isVideoPage || isPlaylistPage) {
     return null;
   }
 
