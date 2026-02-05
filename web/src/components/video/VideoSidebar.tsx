@@ -66,7 +66,7 @@ export function VideoSidebar({ videos }: VideoSidebarProps) {
 
       {/* Video list */}
       <div className="flex flex-col gap-2">
-        {videos.map((video) => (
+        {videos.slice(0, 50).map((video) => (
           <SidebarVideoCard key={video.id} video={video} />
         ))}
       </div>
