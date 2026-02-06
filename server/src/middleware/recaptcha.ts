@@ -1,5 +1,6 @@
 import { createMiddleware } from "hono/factory";
 import { logger } from "../logger";
+import { getClientIp } from "../routes/users";
 
 const VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
 
@@ -32,6 +33,9 @@ export const recaptcha = createMiddleware(async (c, next) => {
     logger.error({ err }, "reCAPTCHA verification error");
     return c.json({ error: "reCAPTCHA verification error" }, 500);
   }
+
+  logger.info("reCAPTCHA verification successful for IP: " + getClientIp(c.req.raw));
+
 
   return next();
 });
