@@ -1,9 +1,11 @@
+import { useState, useRef } from "react";
 import { Link } from "react-router";
 import { Avatar } from "../ui/Avatar";
 import { Button } from "../ui/Button";
 import {
   LikeIcon,
   ShareIcon,
+  CheckIcon,
   MoreHorizIcon,
   VerifiedIcon,
 } from "../icons";
@@ -19,6 +21,15 @@ interface VideoInfoProps {
 export function VideoInfo({ video }: VideoInfoProps) {
   const { data: likeData } = useVideoLike(video.id);
   const likeMutation = useLikeVideo(video.id);
+  const [copied, setCopied] = useState(false);
+  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+    copyTimeoutRef.current = setTimeout(() => setCopied(false), 1000);
+  };
 
   const userLike = likeData?.userLike ?? null;
   const isLiked = userLike === true;
@@ -64,9 +75,12 @@ export function VideoInfo({ video }: VideoInfoProps) {
           </button>
 
           {/* Share */}
-          <button className="flex items-center gap-2 px-4 py-2 bg-(--color-bg-secondary) rounded-full hover:bg-(--color-bg-hover) transition-colors">
-            <ShareIcon />
-            <span className="text-sm font-medium">Share</span>
+          <button
+            className="flex items-center gap-2 px-4 py-2 bg-(--color-bg-secondary) rounded-full hover:bg-(--color-bg-hover) transition-colors cursor-pointer"
+            onClick={handleShare}
+          >
+            {copied ? <CheckIcon /> : <ShareIcon />}
+            <span className="text-sm font-medium">{copied ? "Copied" : "Share"}</span>
           </button>
 
 

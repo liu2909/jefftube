@@ -11,6 +11,7 @@ import { CommentSection } from "../../components/comments/CommentSection";
 import {
   LikeIcon,
   ShareIcon,
+  CheckIcon,
   MoreVertIcon,
   PlayIcon,
   PauseIcon,
@@ -148,6 +149,16 @@ export function ShortVideo({ video, isActive }: ShortVideoProps) {
     likeVideo.mutate();
   };
 
+  const [shareCopied, setShareCopied] = useState(false);
+  const shareCopyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setShareCopied(true);
+    if (shareCopyTimeoutRef.current) clearTimeout(shareCopyTimeoutRef.current);
+    shareCopyTimeoutRef.current = setTimeout(() => setShareCopied(false), 1000);
+  };
+
   const thumbnailUrl = getThumbnailUrl(video);
 
   return (
@@ -257,7 +268,11 @@ export function ShortVideo({ video, isActive }: ShortVideoProps) {
               label={formatCount(video.commentCount ?? 0)}
               onClick={() => setShowComments(true)}
             />
-            <ActionButton icon={<ShareIcon />} label="Share" />
+            <ActionButton
+              icon={shareCopied ? <CheckIcon /> : <ShareIcon />}
+              label={shareCopied ? "Copied" : "Share"}
+              onClick={handleShare}
+            />
             <ActionButton icon={<MoreVertIcon />} />
           </div>
         </div>
