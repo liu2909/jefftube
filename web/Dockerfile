@@ -17,4 +17,4 @@ COPY serve.ts .
 
 EXPOSE 8080
 
-CMD ["bun", "run", "start"]
+CMD ["bun", "serve.ts"]
