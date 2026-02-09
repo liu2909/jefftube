@@ -2,7 +2,8 @@ import { type ReactNode, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { DataContext, type Video } from '../hooks/useData';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || "https://jefftube-server-758971609529.us-central1.run.app";
+;
 
 async function fetchVideos(): Promise<Video[]> {
   const response = await fetch(`${API_URL}/api/videos`);

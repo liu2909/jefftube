@@ -25,7 +25,7 @@ function CaptchaInner({ children }: { children: ReactNode }) {
 }
 
 export function CaptchaProvider({ children }: { children: ReactNode }) {
-    const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+    const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LfCRGIsAAAAAPtu4sPVLvdJ1db9Dh-PneuEYclY";
 
     if (!siteKey) {
         return (

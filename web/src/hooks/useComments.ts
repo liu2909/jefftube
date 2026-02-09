@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { usePostHog } from "posthog-js/react";
 import { useCaptcha } from "./useCaptcha";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || "https://jefftube-server-758971609529.us-central1.run.app";
 
 export interface CommentUser {
   id: string;

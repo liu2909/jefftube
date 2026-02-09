@@ -20,14 +20,14 @@ const queryClient = new QueryClient({
 });
 
 const options = {
-  api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
+  api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
   defaults: '2025-11-30',
 } as const
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <HelmetProvider>
-      <PostHogProvider apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY} options={options}>
+      <PostHogProvider apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY || "phc_tW116Wj3IgE32CVBlySC1jadad6yfKJQzNLparoMjsv"} options={options}>
         <QueryClientProvider client={queryClient}>
           <CaptchaProvider>
             <DataProvider>
