@@ -2,7 +2,7 @@ import { type ReactNode, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { DataContext, type Video } from '../hooks/useData';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL;
 
 async function fetchVideos(): Promise<Video[]> {
   const response = await fetch(`${API_URL}/api/videos`);
