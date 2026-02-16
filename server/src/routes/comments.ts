@@ -127,12 +127,7 @@ commentsRoutes.post("/videos/:videoId/comments", recaptcha, async (c) => {
     return c.json({ error: "Comment must be 300 characters or less" }, 400);
   }
 
-  if (content.includes('hamburger891') || content === 'Yo') {
-    logger.warn({ videoId, userId: user.id }, "comment blocked by spam filter");
-    return c.json({ error: "Stop you weirdo" }, 400);
-  }
-
-  // Rate limit: max 3 comments per user per video per day
+  // Rate limit: max 10 comments per user per video per day
   const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
   const recentComments = await db
     .select({ count: sql<number>`count(*)::int` })
@@ -145,7 +140,7 @@ commentsRoutes.post("/videos/:videoId/comments", recaptcha, async (c) => {
       )
     );
 
-  if (recentComments[0].count >= 3) {
+  if (recentComments[0].count >= 10) {
     logger.warn({ videoId, userId: user.id }, "comment rate limited");
     return c.json(
       { error: "You have left too many comments already" },

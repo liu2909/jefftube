@@ -1,9 +1,9 @@
 import { Glob } from "bun";
 import { randomUUID } from "crypto";
 
-const DOWNLOADS_DIR = "./downloads";
-const THUMBNAILS_DIR = "./thumbnails";
-const OUTPUT_FILE = "./video-metadata.json";
+const DOWNLOADS_DIR = process.argv[2] || "./downloads";
+const THUMBNAILS_DIR = process.argv[3] || "./thumbnails";
+const OUTPUT_FILE = process.argv[4] || "./video-metadata.json";
 
 interface VideoMetadata {
   id: string;
@@ -46,7 +46,7 @@ async function main() {
   // Get all video files (mp4 and mov)
   const files: string[] = [];
 
-  for (const pattern of ["*.mp4", "*.mov"]) {
+  for (const pattern of ["*.mp4", "*.mov", "*.m4v", "*.m4a"]) {
     const glob = new Glob(pattern);
     for await (const file of glob.scan(DOWNLOADS_DIR)) {
       files.push(file);
@@ -69,7 +69,7 @@ async function main() {
     return;
   }
 
-  const metadata: VideoMetadata[] = [];
+  let metadata: VideoMetadata[] = [];
   const startTime = Date.now();
 
   for (let i = 0; i < files.length; i++) {
@@ -92,8 +92,20 @@ async function main() {
 
   const duration = ((Date.now() - startTime) / 1000).toFixed(1);
 
-  // Write to file
-  await Bun.write(OUTPUT_FILE, JSON.stringify(metadata, null, 2));
+  // Merge with existing metadata if output file exists
+  let existing: VideoMetadata[] = [];
+  const outputFile = Bun.file(OUTPUT_FILE);
+  if (await outputFile.exists()) {
+    try {
+      existing = await outputFile.json();
+      const existingFilenames = new Set(existing.map(m => m.filename));
+      metadata = metadata.filter(m => !existingFilenames.has(m.filename));
+      console.log(`\n  Existing entries: ${existing.length}, new to add: ${metadata.length}`);
+    } catch { }
+  }
+
+  const merged = [...existing, ...metadata];
+  await Bun.write(OUTPUT_FILE, JSON.stringify(merged, null, 2));
 
   const withThumbnails = metadata.filter(m => m.hasThumbnail).length;
 

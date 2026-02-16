@@ -12,7 +12,7 @@ interface VideoData {
 
 // Extract ID from filename by removing the extension
 function getIdFromFilename(filename: string): string {
-  return filename.replace(/\.(mp4|mov)$/, "");
+  return filename.replace(/\.[^.]+$/, "");
 }
 
 interface VideoStateEntry {

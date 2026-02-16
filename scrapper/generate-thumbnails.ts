@@ -1,7 +1,7 @@
 import { Glob } from "bun";
 
-const DOWNLOADS_DIR = "./downloads";
-const THUMBNAILS_DIR = "./thumbnails";
+const DOWNLOADS_DIR = process.argv[2] || "./downloads";
+const THUMBNAILS_DIR = process.argv[3] || "./thumbnails";
 const THUMBNAIL_TIME = "00:00:10"; // Extract frame at 10 seconds
 const THUMBNAIL_WIDTH = 480; // Width in pixels (height auto-scaled)
 
@@ -66,7 +66,7 @@ async function main() {
   // Get all video files (mp4 and mov)
   const files: string[] = [];
 
-  for (const pattern of ["*.mp4", "*.mov"]) {
+  for (const pattern of ["*.mp4", "*.mov", "*.m4v", "*.m4a"]) {
     const glob = new Glob(pattern);
     for await (const file of glob.scan(DOWNLOADS_DIR)) {
       files.push(file);
@@ -84,7 +84,7 @@ async function main() {
     existingThumbs.add(file.replace(/\.jpg$/, ""));
   }
 
-  const toGenerate = files.filter(f => !existingThumbs.has(f.replace(/\.(mp4|mov)$/, "")));
+  const toGenerate = files.filter(f => !existingThumbs.has(f.replace(/\.(mp4|mov|m4v|m4a)$/, "")));
   console.log(`Already have: ${existingThumbs.size} thumbnails`);
   console.log(`To generate: ${toGenerate.length}\n`);
 
@@ -100,7 +100,7 @@ async function main() {
 
   for (let i = 0; i < toGenerate.length; i++) {
     const file = toGenerate[i]!;
-    const filename = file.replace(/\.(mp4|mov)$/, "");
+    const filename = file.replace(/\.(mp4|mov|m4v|m4a)$/, "");
     const videoPath = `${DOWNLOADS_DIR}/${file}`;
     const thumbPath = `${THUMBNAILS_DIR}/${filename}.jpg`;
 

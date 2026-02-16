@@ -1,0 +1,1 @@
+CREATE INDEX "videos_views_idx" ON "videos" USING btree ("views");

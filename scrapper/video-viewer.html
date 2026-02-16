@@ -589,13 +589,13 @@
         // Load saved state first
         await loadSavedState();
 
-        const response = await fetch('http://localhost:3001/api/videos');
+        const response = await fetch('./good-new-data-set-9.json');
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
 
         const data = await response.json();
-        const videos = data.videos || data;
+        const videos = data.mp4Files || [];
 
         if (!Array.isArray(videos) || videos.length === 0) {
           container.innerHTML = '<div class="error">No videos found</div>';

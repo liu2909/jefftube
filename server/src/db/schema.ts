@@ -11,7 +11,9 @@ export const videos = pgTable("videos", {
   likes: integer("likes").notNull().default(0),
   is_shorts: boolean("is_shorts").notNull().default(false), // if this video should be shown on the shorts page
   playlist: varchar("playlist", { length: 100 }), // playlist identifier (e.g., "elevator-cam", "lobby-cam")
-});
+}, (table) => [
+  index("videos_views_idx").on(table.views),
+]);
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
